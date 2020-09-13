@@ -1,25 +1,37 @@
 const CustomError = require("../extensions/custom-error");
 
 const chainMaker = {
+  mus: [],
   getLength() {
-    throw new CustomError('Not implemented');
-    // remove line with error and write your code here
+    return this.mus.length;
   },
-  addLink(value) {
-    throw new CustomError('Not implemented');
-    // remove line with error and write your code here
+  addLink(value){
+    if (value==undefined&&value!=null) value=" ";
+    this.mus.push(value);
+    return this;
   },
   removeLink(position) {
-    throw new CustomError('Not implemented');
-    // remove line with error and write your code here
+   if (typeof(position)!="number"||position<1) {
+    this.mus.splice(0); 
+    throw Error("Position isn't correct");
+   }
+   this.mus.splice(position-1,1);
+   return this;
   },
   reverseChain() {
-    throw new CustomError('Not implemented');
-    // remove line with error and write your code here
+    this.mus.reverse();
+    return this;
   },
   finishChain() {
-    throw new CustomError('Not implemented');
-    // remove line with error and write your code here
+    let newMus=this.mus.map(item => {
+      if(item===" "){
+        return "( )";
+      }else{
+        return `( ${item} )`;
+      }
+   }).join("~~");
+    this.mus.splice(0);
+    return newMus;
   }
 };
 
